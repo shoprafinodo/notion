@@ -20,5 +20,16 @@ def signup():
     return "Please sign up by POSTing a username and password."
 
 
+@app.route("/signin", methods=["GET", "POST"])
+def signin():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if not username or not password:
+            return "Username and password are required.", 400
+        return f"User {escape(username)} signed in successfully!", 200
+    return "Please sign in by POSTing a username and password."
+
+
 if __name__ == "__main__":
     app.run()
