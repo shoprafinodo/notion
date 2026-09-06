@@ -31,5 +31,17 @@ def signin():
     return "Please sign in by POSTing a username and password."
 
 
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        if not email:
+            return "Email is required.", 400
+        # Always return a generic response so the endpoint does not reveal
+        # whether an account exists for the given email (avoids user enumeration).
+        return "If an account exists for that email, a reset link has been sent.", 200
+    return "Please request a password reset by POSTing an email."
+
+
 if __name__ == "__main__":
     app.run()
